@@ -1,0 +1,16 @@
+{
+  "startRoom": "A",
+  "rooms": [
+    {
+      "id": "A",
+      "name": "Room A",
+      "description": "Room A"
+    },
+    {
+      "id": "A",
+      "name": "Room A Dupe",
+      "description": "Room A Dupe"
+    }
+  ],
+  "connections": []
+}

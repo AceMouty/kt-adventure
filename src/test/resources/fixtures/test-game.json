@@ -1,0 +1,47 @@
+{
+  "startRoom": "porch",
+  "rooms": [
+    {
+      "id": "porch",
+      "name": "Front Porch",
+      "description": "A creaky wooden porch with a rocking chair. The door behind you is locked, but a path leads into the yard."
+    },
+    {
+      "id": "yard",
+      "name": "Overgrown Yard",
+      "description": "Tall grass brushes your legs. An old shed leans to one side, and a trail disappears into the trees.",
+      "items": ["rusty key", "coin"]
+    },
+    {
+      "id": "shed",
+      "name": "Old Shed",
+      "description": "Dusty tools hang from the walls. Something scratches at the inside of the door.",
+      "items": ["lantern"]
+    },
+    {
+      "id": "trail",
+      "name": "Forest Trail",
+      "description": "A narrow trail winds between dark trees. The air is cold and still."
+    },
+    {
+      "id": "clearing",
+      "name": "Quiet Clearing",
+      "description": "A small clearing with a circle of stones. The ground looks disturbed here.",
+      "hasTreasure": true,
+      "items": ["small chest"]
+    }
+  ],
+  "connections": [
+    { "from": "porch", "direction": "north", "to": "yard" },
+    { "from": "yard", "direction": "south", "to": "porch" },
+
+    { "from": "yard", "direction": "east", "to": "shed" },
+    { "from": "shed", "direction": "west", "to": "yard" },
+
+    { "from": "yard", "direction": "north", "to": "trail" },
+    { "from": "trail", "direction": "south", "to": "yard" },
+
+    { "from": "trail", "direction": "north", "to": "clearing" },
+    { "from": "clearing", "direction": "south", "to": "trail" }
+  ]
+}

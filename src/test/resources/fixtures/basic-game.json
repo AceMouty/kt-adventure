@@ -1,0 +1,32 @@
+{
+  "startRoom": "A",
+  "rooms": [
+    {
+      "id": "A",
+      "name": "Room A",
+      "description": "Room A"
+    },
+    {
+      "id": "B",
+      "name": "Room B",
+      "description": "Room B",
+      "items": ["rusty key", "coin"]
+    },
+    {
+      "id": "C",
+      "name": "Room C",
+      "description": "Room C",
+      "items": ["lantern"]
+    }
+  ],
+  "connections": [
+    { "from": "A", "direction": "south", "to": "B" },
+    { "from": "B", "direction": "north", "to": "A" },
+
+    { "from": "B", "direction": "west", "to": "C" },
+    { "from": "C", "direction": "east", "to": "B" },
+
+    { "from": "C", "direction": "north", "to": "A" },
+    { "from": "A", "direction": "west", "to": "C" }
+  ]
+}

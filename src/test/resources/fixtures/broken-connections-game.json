@@ -1,0 +1,13 @@
+{
+  "startRoom": "A",
+  "rooms": [
+    {
+      "id": "A",
+      "name": "Room A",
+      "description": "Room A"
+    }
+  ],
+  "connections": [
+    { "from": "A", "direction": "south", "to": "B" }
+  ]
+}
