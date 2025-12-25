@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dungeon Map Schema",
+  "type": "object",
+  "required": ["startRoom", "rooms", "connections"],
+  "properties": {
+    "startRoom": {
+      "type": "string",
+      "description": "The ID of the starting room."
+    },
+    "rooms": {
+      "type": "array",
+      "description": "List of rooms in the dungeon.",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the room."
+          },
+          "name": {
+            "type": "string",
+            "description": "Human-readable name of the room."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the room."
+          },
+          "items": {
+            "type": "array",
+            "description": "List of items present in the room.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hasTreasure": {
+            "type": "boolean",
+            "description": "Indicates whether the room contains treasure."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "connections": {
+      "type": "array",
+      "description": "List of connections between rooms.",
+      "items": {
+        "type": "object",
+        "required": ["from", "direction", "to"],
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "ID of the starting room."
+          },
+          "direction": {
+            "type": "string",
+            "description": "Direction of movement (e.g., north, south, etc.).",
+            "enum": ["north", "south", "east", "west"]
+          },
+          "to": {
+            "type": "string",
+            "description": "ID of the destination room."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
