@@ -9,16 +9,11 @@ class ReplRunner(private val session: GameSession) {
             val line = readlnOrNull()?.trim() ?: break
             if(line.isBlank()) continue
 
-            val result = handle(line)
-            if(result == QUIT) break
+            val result = handle(line) ?: break
             if(result.isNotBlank()) println(result)
         }
 
         println("Bye!")
-    }
-
-    private companion object {
-        private const val QUIT = "__QUIT__"
     }
 
     fun renderPrompt(): String {
@@ -34,28 +29,31 @@ class ReplRunner(private val session: GameSession) {
         }.trimEnd()
     }
 
-    fun handle(input: String): String {
+    fun handle(input: String): String? {
         val parts = input.split(Regex("\\s+"))
-        val cmd = parts[0].lowercase()
-        val arg = parts.drop(1).joinToString(" ")
+        val cmdToken = parts.getOrNull(0).orEmpty()
+        val arg = parts.getOrNull(1).orEmpty()
+
+        val cmd = ReplCommand.parse(cmdToken) ?: return "Unknown command: $cmdToken"
 
         return when(cmd) {
-            "quit", "exit" -> QUIT
-            "n", "north" -> move(Direction.NORTH)
-            "s", "south" -> move(Direction.SOUTH)
-            "e", "east" -> move(Direction.EAST)
-            "w", "west" -> move(Direction.WEST)
-            "take", "get" -> {
+            ReplCommand.QUIT -> null
+            ReplCommand.NORTH -> move(Direction.NORTH)
+            ReplCommand.SOUTH -> move(Direction.SOUTH)
+            ReplCommand.EAST -> move(Direction.EAST)
+            ReplCommand.WEST -> move(Direction.WEST)
+            ReplCommand.LOOK -> renderPrompt()
+            ReplCommand.TAKE -> {
                 if(arg.isBlank()) "what would you like to take?"
                 else session.take(arg)?.let { "$it was added to inventory" } ?: "No such item here"
             }
-            "inv", "inventory" -> {
+            ReplCommand.INVENTORY -> {
                 val inv = session.player.inventory
                 if(inv.isEmpty()) "Inventory is empty"
                 else inv.joinToString(prefix = "You have: ") { it }
 
             }
-            else -> "Unknown command: $cmd"
+            ReplCommand.HELP -> ReplCommand.showHelp()
         }
     }
 
