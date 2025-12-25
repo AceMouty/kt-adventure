@@ -5,15 +5,14 @@ import io.Room
 class GameSession private constructor(
     val worldGraph: WorldGraph,
     val player: Player,
+    var currentRoomId: String
 ){
     val currentRoom: Room
-        get() = worldGraph.room(player.currentRoomId)
+        get() = worldGraph.room(currentRoomId)
 
-    fun tryMove(direction: Direction): Boolean {
-        val nextRoomId = currentRoom.connections[direction] ?: return false
-        player.currentRoomId = nextRoomId
-        return true
-    }
+    fun tryMove(direction: Direction): Boolean =
+        worldGraph.nextRoomId(currentRoomId, direction)
+            ?.also { currentRoomId = it} != null
 
     fun take(token: String): String? {
         val idx = currentRoom.items?.indexOfFirst {
@@ -25,11 +24,13 @@ class GameSession private constructor(
     }
 
     companion object {
-        fun fromConfig(cfg: GameConfig): GameSession {
-            val world = WorldGraph.fromConfig(cfg)
-            val player = Player( currentRoomId = world.currentRoomId)
-
-            return GameSession(world, player)
+        fun fromGameConfig(gameConfig: GameConfig): GameSession {
+            val world = WorldGraph.fromGameConfig(gameConfig)
+            return GameSession(
+                world,
+                Player(),
+                gameConfig.startRoom
+            )
         }
     }
 }

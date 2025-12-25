@@ -1,0 +1,66 @@
+{
+  "startRoom": "entrance",
+  "rooms": [
+    {
+      "id": "entrance",
+      "name": "Cave Entrance",
+      "description": "You stand at the entrance of a dark, mysterious cave. Ancient symbols are carved deep into the weathered stone walls, and a musty smell of ages past fills the air. Your torch flickers, casting dancing shadows."
+    },
+    {
+      "id": "corridor1",
+      "name": "Narrow Stone Corridor",
+      "description": "A narrow stone corridor stretches before you into the darkness. Water drips steadily from the moss-covered ceiling, creating small puddles that echo with each drop. The walls are slick with moisture."
+    },
+    {
+      "id": "chamber1",
+      "name": "Crystal Chamber",
+      "description": "You enter a breathtaking chamber filled with luminescent crystals of every color. They pulse with an inner light, creating mesmerizing patterns on the walls. The air hums with mystical energy.",
+      "items": ["glowing crystal", "ancient torch", "crystal shard"]
+    },
+    {
+      "id": "chamber2",
+      "name": "Ancient Library",
+      "description": "Towering bookshelves stretch to the vaulted ceiling, filled with countless ancient tomes and scrolls. Dust motes dance in shafts of ethereal light. The smell of old parchment and forgotten knowledge permeates the air.",
+      "items": ["ancient book", "mystical scroll", "quill pen"]
+    },
+    {
+      "id": "puzzle_room",
+      "name": "Chamber of Riddles",
+      "description": "Strange runic symbols cover the floor in an intricate circular pattern. The walls are adorned with cryptic murals depicting ancient ceremonies. This appears to be some kind of mystical puzzle chamber."
+    },
+    {
+      "id": "treasure_room",
+      "name": "The Legendary Treasure Vault",
+      "description": "Your breath catches as you behold mountains of golden coins, precious gems, and artifacts beyond imagination! Ancient treasure chests overflow with riches. You've discovered the legendary lost treasure of the ancients!",
+      "hasTreasure": true,
+      "items": ["golden coins", "ruby of power", "diamond crown", "silver chalice", "ancient artifact"]
+    },
+    {
+      "id": "dead_end",
+      "name": "Collapsed Passage",
+      "description": "The passage ends abruptly where massive stone blocks have collapsed from the ceiling long ago. Rubble and debris block any further progress. This appears to be a dead end."
+    },
+    {
+      "id": "secret_room",
+      "name": "Hidden Sanctum",
+      "description": "A secret chamber hidden behind ancient mechanisms. Mystical symbols glow faintly on the walls, and an otherworldly presence seems to watch over this sacred space.",
+      "items": ["magical amulet", "ceremonial dagger"]
+    }
+  ],
+  "connections": [
+    {"from": "entrance", "direction": "north", "to": "corridor1"},
+    {"from": "corridor1", "direction": "south", "to": "entrance"},
+    {"from": "corridor1", "direction": "east", "to": "chamber1"},
+    {"from": "corridor1", "direction": "west", "to": "chamber2"},
+    {"from": "corridor1", "direction": "north", "to": "puzzle_room"},
+    {"from": "chamber1", "direction": "west", "to": "corridor1"},
+    {"from": "chamber1", "direction": "north", "to": "dead_end"},
+    {"from": "chamber1", "direction": "east", "to": "secret_room"},
+    {"from": "chamber2", "direction": "east", "to": "corridor1"},
+    {"from": "puzzle_room", "direction": "south", "to": "corridor1"},
+    {"from": "puzzle_room", "direction": "north", "to": "treasure_room"},
+    {"from": "treasure_room", "direction": "south", "to": "puzzle_room"},
+    {"from": "dead_end", "direction": "south", "to": "chamber1"},
+    {"from": "secret_room", "direction": "west", "to": "chamber1"}
+  ]
+}

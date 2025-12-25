@@ -2,6 +2,7 @@ package io
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Serializable
 enum class Direction(val value: String) {
@@ -23,4 +24,11 @@ data class GameConfig (
     val startRoom: String,
     val rooms: List<Room>,
     val connections: List<Connection>
-)
+){
+    companion object {
+        private val json = Json { ignoreUnknownKeys = true }
+        fun fromJsonString(jsonString: String): GameConfig {
+            return json.decodeFromString(serializer(), jsonString)
+        }
+    }
+}
